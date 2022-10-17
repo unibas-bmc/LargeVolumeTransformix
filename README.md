@@ -2,7 +2,7 @@
 Transforming giga- to teravoxel high-resolution volumes with low-resolution registration results. 
 
 # Background
-Virtual histology based on hard X-ray microtomography produces volumetric imaging with isotropic pixel sizes down to and below one micron. As field-of-view increases, the resulting datasets grow in size from the gigabyte to terabyte (and even petabyte). Registering and transforming these datasets requires a multi-resolution distributed approach.
+Virtual histology based on hard X-ray microtomography produces volumetric imaging with isotropic pixel sizes down to and below one micron. As field-of-view increases, the resulting datasets grow in size from the gigabyte to terabyte (and even petabyte) scale. Registering and transforming these datasets requires a multi-resolution distributed approach.
 
 As a first step, we developed a pipeline for transforming large virtual histology images using low-resolution registrations. In this case, we collected microtomography of an entire mouse brain with isotropic 0.65 µm pixel size and developed a pipeline to reconstruct the data, see [G. Rodgers et al. " Mosaic microtomography of a full mouse brain with sub-micron pixel size "](https://doi.org/10.1117/12.2633556). This data should be transformed into the Allen Mouse Brain Common Coordinate Framework.
 
@@ -12,7 +12,7 @@ The approach is described in more detail in [C. Tanner et al. "Registration of m
 
 # Usage 
 ## Requirements
-[elastix and transformix](https://elastix.lumc.nl/) are needed.
+[elastix and transformix](https://elastix.lumc.nl/) are used for registration and transformation.
 
 ## Data
 ### Low-resolution volumes for registration
