@@ -10,8 +10,12 @@ The approach is described in more detail in [C. Tanner et al. "Registration of m
 
 ![Coordinate transforms for transformix](https://github.com/grodgers1/LargeVolumeTransformix/blob/main/example/figures/fig_coordtransform.png)
 
-# Usage 
-## Requirements
+# Usage
+Follow the script `TransformToAtlas.m`
+
+You will need to adjust paths to the data. You will also need to adjust paths to the initial transform for the affine transform given. More information is found in `TransformToAtlas.m`.
+
+## Requirements
 The pipeline relies on [elastix and transformix](https://elastix.lumc.nl/) are for registration and transformation.
 
 ## Data
@@ -28,9 +32,3 @@ After publication, the datasets will hopefully be made publicly available.
 
 For now, the 8x binned recos are available on our group's storage:
 `/storage/groups/bmc/shared_projects/LargeVolumeTransformix/reconstructions/mouse4_eth/`
-
-## Usage
-Follow the script `TransformToAtlas.m`
-
-You will need to adjust paths to the data. You will also need to adjust paths to the initial transform for the affine transform given. More information is found in `TransformToAtlas.m`.
-
