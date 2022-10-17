@@ -12,7 +12,7 @@ The approach is described in more detail in [C. Tanner et al. "Registration of m
 
 # Usage 
 ## Requirements
-[elastix and transformix](https://elastix.lumc.nl/) are used for registration and transformation.
+The pipeline relies on [elastix and transformix](https://elastix.lumc.nl/) are for registration and transformation.
 
 ## Data
 ### Low-resolution volumes for registration
