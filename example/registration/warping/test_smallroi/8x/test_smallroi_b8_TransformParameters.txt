@@ -1,0 +1,31 @@
+(Transform "AffineTransform")
+(NumberOfParameters 12)
+(TransformParameters 1.002384 0.019597 -0.031097 -0.029973 0.921755 0.095181 0.015882 -0.013848 0.998155 0.357136 -0.578611 0.416607)
+(InitialTransformParametersFileName "/media/griffin/_home1/mosaic_reconstruction/mousebrain/atlas_registration/v3/pre-align/ManualPrealignTParams.txt")
+(HowToCombineTransforms "Compose")
+
+// Image specific
+(FixedImageDimension 3)
+(MovingImageDimension 3)
+(FixedInternalImagePixelType "float")
+(MovingInternalImagePixelType "float")
+(Size 385 385 49)
+(Index 0 0 0)
+(Spacing 0.052 0.052 0.052)
+(Origin 24.75 14.75 14.75)
+(Direction 1.0000000000 0.0000000000 0.0000000000 0.0000000000 1.0000000000 0.0000000000 0.0000000000 0.0000000000 1.0000000000)
+(UseDirectionCosines "false")
+
+// AdvancedAffineTransform specific
+(CenterOfRotationPoint 45.2178935548 55.5368068896 54.8559560837)
+
+// ResampleInterpolator specific
+(ResampleInterpolator "FinalBSplineInterpolator")
+(FinalBSplineInterpolationOrder 1)
+
+// Resampler specific
+(Resampler "DefaultResampler")
+(DefaultPixelValue -32768.000000)
+(ResultImageFormat "mha")
+(ResultImagePixelType "short")
+(CompressResultImage "false")

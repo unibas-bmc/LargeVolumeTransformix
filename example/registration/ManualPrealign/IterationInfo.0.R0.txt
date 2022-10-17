@@ -1,0 +1,2 @@
+1:ItNr	2:Metric	3a:Time	3b:StepSize	4:||Gradient||	Time[ms]
+0	-0.132726	0.000000	804.357061	0.002339	2537.8

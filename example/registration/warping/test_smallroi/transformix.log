@@ -1,0 +1,82 @@
+
+transformix is started at Mon Oct 17 11:17:38 2022.
+
+which transformix:   transformix
+transformix runs at: dbe-bmc-wl13-01
+  Linux 4.15.0-142-generic (x64), #146-Ubuntu SMP Tue Apr 13 01:11:19 UTC 2021
+  with 145004 MB memory, and 8 cores @ 3320 MHz.
+Running transformix with parameter file "./example/registration/affine0/TransformParameters.0.txt".
+
+Reading the elastix parameters from file ...
+
+Installing all components.
+InstallingComponents was successful.
+
+ELASTIX version: 4.900
+Command line options from ElastixBase:
+-in       unspecified, so no input image specified
+-out      ./example/registration/warping/test_smallroi/
+-threads  unspecified, so all available threads are used
+-tp       ./example/registration/affine0/TransformParameters.0.txt
+-def      ./example/registration/warping/test_smallroi/iniroi_bbpoints.txt
+-jac      unspecified, so no det(dT/dx) computed
+-jacmat   unspecified, so no dT/dx computed
+
+=============== start of ParameterFile: ./example/registration/affine0/TransformParameters.0.txt ===============
+(Transform "AffineTransform")
+(NumberOfParameters 12)
+(TransformParameters 1.002384 0.019597 -0.031097 -0.029973 0.921755 0.095181 0.015882 -0.013848 0.998155 0.357136 -0.578611 0.416607)
+(InitialTransformParametersFileName "/media/griffin/_home1/mosaic_reconstruction/mousebrain/atlas_registration/v3/pre-align/ManualPrealignTParams.txt")
+(HowToCombineTransforms "Compose")
+
+// Image specific
+(FixedImageDimension 3)
+(MovingImageDimension 3)
+(FixedInternalImagePixelType "float")
+(MovingInternalImagePixelType "float")
+(Size 456 320 528)
+(Index 0 0 0)
+(Spacing 0.2500000000 0.2500000000 0.2500000000)
+(Origin 0.0000000000 0.0000000000 0.0000000000)
+(Direction 1.0000000000 0.0000000000 0.0000000000 0.0000000000 1.0000000000 0.0000000000 0.0000000000 0.0000000000 1.0000000000)
+(UseDirectionCosines "false")
+
+// AdvancedAffineTransform specific
+(CenterOfRotationPoint 45.2178935548 55.5368068896 54.8559560837)
+
+// ResampleInterpolator specific
+(ResampleInterpolator "FinalBSplineInterpolator")
+(FinalBSplineInterpolationOrder 1)
+
+// Resampler specific
+(Resampler "DefaultResampler")
+(DefaultPixelValue -32768.000000)
+(ResultImageFormat "mha")
+(ResultImagePixelType "short")
+(CompressResultImage "false")
+
+
+=============== end of ParameterFile: ./example/registration/affine0/TransformParameters.0.txt ===============
+
+Calling all ReadFromFile()'s ...
+Reading the elastix parameters from file ...
+
+  Calling all ReadFromFile()'s took 0.000471 s
+Transforming points ...
+  The transform is evaluated on some points, specified in the input point file.
+  Reading input point file: ./example/registration/warping/test_smallroi/iniroi_bbpoints.txt
+  Input points are specified in world coordinates.
+  Number of specified input points: 8
+  The input points are transformed.
+  The transformed points are saved in: ./example/registration/warping/test_smallroi/outputpoints.txt
+  Transforming points done, it took 0.00s
+Compute determinant of spatial Jacobian ...
+  The command-line option "-jac" is not used, so no det(dT/dx) computed.
+  Computing determinant of spatial Jacobian done, it took 0.00s
+Compute spatial Jacobian (full matrix) ...
+  The command-line option "-jacmat" is not used, so no dT/dx computed.
+  Computing spatial Jacobian done, it took 0.00s
+
+transformix has finished at Mon Oct 17 11:17:38 2022.
+Total time elapsed: 0.0s.
+
