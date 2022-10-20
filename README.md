@@ -25,7 +25,18 @@ After publication, the datasets will hopefully be made publicly available.
 For now, the 32x binned reco and the atlas volumes are on our group's storage:
 `/storage/groups/bmc/shared_projects/LargeVolumeTransformix/registration/volumes/`
 
-The atlas volumes were re-oriented and the pixel sizes were divided by 100. The pixel size adjustment allows for non-rigid registration with a bending energy penalty, as the original pixel size results in values below the detection limit.
+The atlas volumes were downloaded from [https://download.alleninstitute.org/informatics-archive/current-release/mouse_ccf/average_template/](https://download.alleninstitute.org/informatics-archive/current-release/mouse_ccf/average_template/) then re-oriented using the following code:
+
+```
+[avgt, ~] = nrrdread([atlas_directory 'average_template_10.nrrd']); # from file exchange 
+avgt = permute(avgt,[1,3,2]);
+avgt = int16(double(avgt)-2^15);
+avgt = flip(avgt,3);
+avgt = rot90(avgt,1);
+
+```
+
+For registration, the pixel sizes were divided by 100. The pixel size adjustment allows for non-rigid registration with a bending energy penalty, as the original pixel size results in values below the detection limit.
 
 ### High-resolution reconstructions
 After publication, the datasets will hopefully be made publicly available.
