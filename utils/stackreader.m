@@ -1,9 +1,23 @@
-function [vol] = stackreader(loadDir,roi)
+% read stack of tif slices and extract region of interest (ROI)
+%
+% [vol] = stackreader(loadDir,roi,bgInt)
+%
+% loadDir   directory name of tif images
+% roi       image region, I(roi(3):roi(4),roi(1):roi(2),roi(5):roi(6))
+% bgInt     background intensity, default minimum of datatype
+%
+% vol       3D array of extracted ROI 
+%
+function [vol] = stackreader(loadDir,roi,bgInt)
 
-tmp = dir([loadDir '*.tif']);
+f = dir([loadDir '*.tif']);
+if isempty(f)
+    disp(['No *.tif files found in ' loadDir])
+    return
+end
 zlist = roi(5):roi(6);
 
-info = imfinfo([tmp(1).folder filesep tmp(1).name]);
+info = imfinfo([f(1).folder filesep f(1).name]);
 
 if info.BitsPerSample == 32
     fmt = 'single';
@@ -17,16 +31,53 @@ elseif info.BitsPerSample == 16
     end
 else
     erstr = ['Could not identify the data type of the image stack: \n' ...
-            'File: ' tmp(1).folder filesep tmp(1).name '\n' ...
+            'File: ' f(1).folder filesep f(1).name '\n' ...
             'BitsPerSample: ' num2str(info.BitsPerSample) '\n' ...
             'SampleFormat: ' info.SampleFormat '\n'];
     error(erstr)
 end
 
-vol = zeros(length(roi(3):roi(4)),length(roi(1):roi(2)),length(zlist),fmt);
-for i = 1:length(zlist)
-    vol(:,:,i) = imread([tmp(zlist(i)).folder filesep tmp(zlist(i)).name],...
-        'PixelRegion',{[roi(3), roi(4)],[roi(1), roi(2)]});
+% number of voxels
+nv(1)=length(roi(3):roi(4));
+nv(2)=length(roi(1):roi(2));
+nv(3)=length(zlist);
+% initialize with background intensity
+if nargin<3
+    bgInt=intmin(fmt);  
+end
+vol = bgInt*ones(nv(1),nv(2),nv(3),fmt);
+
+% keep roi within image
+newRoi(1)=max(1,roi(1));
+newRoi(2)=min(info.Width,roi(2));
+newRoi(3)=max(1,roi(3));
+newRoi(4)=min(info.Height,roi(4));
+newRoi(5)=max(1,roi(5));
+newRoi(6)=min(length(f),roi(6));
+newZlist=newRoi(5):newRoi(6);
+
+diffRoi=roi-newRoi;
+diffRoiAbs = sum(abs(diffRoi));  
+
+if diffRoiAbs==0
+    % roi is inside image
+    for i = 1:nv(3)
+        vol(:,:,i) = imread([f(zlist(i)).folder filesep f(zlist(i)).name],...
+            'PixelRegion',{[roi(3), roi(4)],[roi(1), roi(2)]});
+    end
+else
+    % roi is (partially) outside image
+    if ~isempty(newZlist) && ~isempty(newRoi(3):newRoi(4)) && ~isempty(newRoi(1):newRoi(2))
+        % none of the dimensions are empty
+        for i = 1:length(newZlist)
+            
+            tmpI = imread([f(newZlist(i)).folder filesep f(newZlist(i)).name],...
+                'PixelRegion',{[newRoi(3), newRoi(4)],[newRoi(1), newRoi(2)]});
+            
+            % put in right location
+            vol(1-diffRoi(3):nv(1)-diffRoi(4),1-diffRoi(1):nv(2)-diffRoi(2),i-diffRoi(5))=tmpI;
+        end
+    end
 end
 
 end
