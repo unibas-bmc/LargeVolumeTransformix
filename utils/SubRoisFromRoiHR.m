@@ -1,12 +1,16 @@
-function [newRois,newIndices] = SubRoisFromRoi(roi,gridFacV)
+function [newRois,newIndices] = SubRoisFromRoiHR(roi,gridFacV)
 % create non-overlapping sub-rois from an initial roi
-% [newRois,newIndices] = SubRoisFromRoi(roi,gridFacV)
+% [newRois,newIndices] = SubRoisFromRoiHR(roi,gridFacV)
+%
 % it will make a grid [gridFacV(1),gridFacV(2),gridFacV(3)] of rois, each of size
 % approximately the size of roi ./ gridFacV
+%
+% roi is given already in high-resolution pixel indices
+% hence split should keep integer values of pixel indices
 
 tmp = diff(roi);
 roiSize = tmp([1,3,5]);
-tmp = roiSize./gridFacV;
+tmp = ceil(roiSize./gridFacV);  % ensure integer values
 
 newRois = {};
 newIndices = {};

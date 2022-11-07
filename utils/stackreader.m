@@ -1,23 +1,23 @@
 % read stack of tif slices and extract region of interest (ROI)
 %
-% [vol] = stackreader(loadDir,roi,bgInt)
+% [vol] = stackreader(fDir,roi,bgInt)
 %
-% loadDir   directory name of tif images
+% fDir      tif filenames from fDir=dir([loadDir '*.tif']), done once to save time
 % roi       image region, I(roi(3):roi(4),roi(1):roi(2),roi(5):roi(6))
 % bgInt     background intensity, default minimum of datatype
 %
 % vol       3D array of extracted ROI 
 %
-function [vol] = stackreader(loadDir,roi,bgInt)
+function [vol] = stackreader(fDir,roi,bgInt)
 
-f = dir([loadDir '*.tif']);
-if isempty(f)
-    disp(['No *.tif files found in ' loadDir])
+%fDir = dir([loadDir '*.tif']);
+if isempty(fDir)
+    disp('Empty list of *.tif filenames')
     return
 end
 zlist = roi(5):roi(6);
 
-info = imfinfo([f(1).folder filesep f(1).name]);
+info = imfinfo([fDir(1).folder filesep fDir(1).name]);
 
 if info.BitsPerSample == 32
     fmt = 'single';
@@ -31,7 +31,7 @@ elseif info.BitsPerSample == 16
     end
 else
     erstr = ['Could not identify the data type of the image stack: \n' ...
-            'File: ' f(1).folder filesep f(1).name '\n' ...
+            'File: ' fDir(1).folder filesep fDir(1).name '\n' ...
             'BitsPerSample: ' num2str(info.BitsPerSample) '\n' ...
             'SampleFormat: ' info.SampleFormat '\n'];
     error(erstr)
@@ -53,7 +53,7 @@ newRoi(2)=min(info.Width,roi(2));
 newRoi(3)=max(1,roi(3));
 newRoi(4)=min(info.Height,roi(4));
 newRoi(5)=max(1,roi(5));
-newRoi(6)=min(length(f),roi(6));
+newRoi(6)=min(length(fDir),roi(6));
 newZlist=newRoi(5):newRoi(6);
 
 diffRoi=roi-newRoi;
@@ -62,7 +62,7 @@ diffRoiAbs = sum(abs(diffRoi));
 if diffRoiAbs==0
     % roi is inside image
     for i = 1:nv(3)
-        vol(:,:,i) = imread([f(zlist(i)).folder filesep f(zlist(i)).name],...
+        vol(:,:,i) = imread([fDir(zlist(i)).folder filesep fDir(zlist(i)).name],...
             'PixelRegion',{[roi(3), roi(4)],[roi(1), roi(2)]});
     end
 else
@@ -71,7 +71,7 @@ else
         % none of the dimensions are empty
         for i = 1:length(newZlist)
             
-            tmpI = imread([f(newZlist(i)).folder filesep f(newZlist(i)).name],...
+            tmpI = imread([fDir(newZlist(i)).folder filesep fDir(newZlist(i)).name],...
                 'PixelRegion',{[newRoi(3), newRoi(4)],[newRoi(1), newRoi(2)]});
             
             % put in right location
