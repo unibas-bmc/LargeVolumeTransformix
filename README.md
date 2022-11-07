@@ -11,9 +11,9 @@ The approach is described in more detail in [C. Tanner et al. "Registration of m
 ![Coordinate transforms for transformix](https://github.com/grodgers1/LargeVolumeTransformix/blob/main/example/figures/fig_coordtransform.png)
 
 # Usage
-Set parameters and filenames in 'DataParameterDefinition.m'. You will need to adjust paths to the data, the resolution and region of interest which should be processed, and the maximum filesize your computer can handle. You will also need to adjust the path to the initial transform for the affine transform given, if relative paths change. More information is found in `DataParameterDefinition.m`.
+Set parameters and filenames in `DataParameterDefinition.m`. You will need to adjust paths to the data, the resolution and region of interest which should be processed, and the maximum filesize your computer can handle. You will also need to adjust the path to the initial transform for the affine transform given, if relative paths change. More information is found in `DataParameterDefinition.m`.
 
-Run the script `TransformToAtlas.m'. It will first state the selected main parameters.
+Run the script `TransformToAtlas.m`. It will first state the selected main parameters.
 
 ## Requirements
 The pipeline relies on [elastix and transformix](https://elastix.lumc.nl/) are for registration and transformation.
