@@ -57,28 +57,33 @@ newRoi(6)=min(length(fDir),roi(6));
 newZlist=newRoi(5):newRoi(6);
 
 diffRoi=roi-newRoi;
-diffRoiAbs = sum(abs(diffRoi));  
+diffRoiAbs = sum(abs(diffRoi)); 
+
+hh = waitbar(0,'reading slices');
 
 if diffRoiAbs==0
     % roi is inside image
     for i = 1:nv(3)
         vol(:,:,i) = imread([fDir(zlist(i)).folder filesep fDir(zlist(i)).name],...
             'PixelRegion',{[roi(3), roi(4)],[roi(1), roi(2)]});
+        waitbar( i/nv(3) ,hh);
     end
 else
     % roi is (partially) outside image
     if ~isempty(newZlist) && ~isempty(newRoi(3):newRoi(4)) && ~isempty(newRoi(1):newRoi(2))
         % none of the dimensions are empty
-        for i = 1:length(newZlist)
+        noZ=length(newZlist);
+        for i = 1:noZ
             
             tmpI = imread([fDir(newZlist(i)).folder filesep fDir(newZlist(i)).name],...
                 'PixelRegion',{[newRoi(3), newRoi(4)],[newRoi(1), newRoi(2)]});
             
             % put in right location
             vol(1-diffRoi(3):nv(1)-diffRoi(4),1-diffRoi(1):nv(2)-diffRoi(2),i-diffRoi(5))=tmpI;
+            waitbar( i/noZ ,hh);
         end
     end
 end
-
+close(hh);
 end
 

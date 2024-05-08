@@ -1,6 +1,8 @@
 function [status,result] = calltransformix(infile,tparam,outdir)
-
+%
 % build transformix command
+% calltransformix(infile,tparam,outdir)
+%
 if strcmp(infile,'')
     % spatial jacobian
     CMD=sprintf('transformix -jac all -out %s -tp %s',...
